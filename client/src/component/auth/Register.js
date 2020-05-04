@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setAlert } from '../../Store/actions/alert'
+import { register } from '../../Store/actions/auth'
 
-const Register = (props) => {
+const Register = ({register,setAlert}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,9 +20,9 @@ const Register = (props) => {
   const onSubmitForm = (e) => {
     e.preventDefault()
     if (password !== password2) {
-     props.onSetAlert('Wrong Passowrd', 'danger')
+      setAlert('Password do not match', 'danger')
     } else {
-      console.log(formData)
+      register({name, email, password})
     }
   }
 
@@ -39,7 +40,6 @@ const Register = (props) => {
             name="name"
             value={name}
             onChange={(e) => onChangeHandler(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -60,7 +60,6 @@ const Register = (props) => {
             type="password"
             placeholder="Password"
             name="password"
-            minLength="6"
             value={password}
             onChange={(e) => onChangeHandler(e)}
           />
@@ -70,7 +69,6 @@ const Register = (props) => {
             type="password"
             placeholder="Confirm Password"
             name="password2"
-            minLength="6"
             value={password2}
             onChange={(e) => onChangeHandler(e)}
           />
@@ -84,11 +82,12 @@ const Register = (props) => {
   )
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSetAlert : (msg, alertType) => dispatch(setAlert(msg, alertType))
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     onSetAlert : (msg, alertType) => dispatch(setAlert(msg, alertType)),
+//     onRegister : (name, email, password) => dispatch(register({name, email, password})) 
+//   }
+// }
 
 
-export default connect(null, mapDispatchToProps)(Register)
+export default connect(null, { setAlert,register } )(Register)
