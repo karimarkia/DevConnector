@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Redirect, Route } from 'react-router-dom'
+import Spinner from '../Layout/Spinner'
 
 const PrivateRoute = ({
   component: Component,
@@ -18,7 +19,7 @@ const PrivateRoute = ({
           <Component {...props} />
         )
       ) : (
-        <p>Loading...</p> // Perhaps a loading component could be used here
+        <Spinner/>
       )
     }
  />
