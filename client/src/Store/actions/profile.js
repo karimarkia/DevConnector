@@ -2,6 +2,7 @@ import axios from 'axios'
 import { GET_PROFILE, PROFILE_ERROR } from './types'
 import { setAlert } from './alert'
 
+// Get User Profile If Exist
 export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await axios.get('api/profile/me')
@@ -17,6 +18,7 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 }
 
+// Create a Profile For A User
 export const createProfile = (formDate, history, edit = false) => async (
   dispatch
 ) => {
@@ -33,7 +35,7 @@ export const createProfile = (formDate, history, edit = false) => async (
       payload: res.data,
     })
 
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created'))
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'))
 
     if (!edit) {
       history.push('/dashboard')
