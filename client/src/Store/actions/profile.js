@@ -81,7 +81,7 @@ export const addUserExperience = (formData, history) => async (dispatch) => {
   }
 }
 // Add Education
-export const addEducation = (formData, history) => async (dispatch) => {
+export const addUserEducation = (formData, history) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -89,7 +89,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
       },
     }
 
-    const res = await axios.put('/api/education', formData, config)
+    const res = await axios.put('/api/profile/education', formData, config)
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
