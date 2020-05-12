@@ -13,7 +13,7 @@ const Dashboard = ({
 }) => {
   useEffect(() => {
     getCurrentProfile()
-
+    // eslint-disable-next-line
   }, [])
 
   return loading && profile === null ? (
@@ -25,7 +25,9 @@ const Dashboard = ({
         <i className="fas fa-user" /> Welcome {user && user.name}
       </p>
       {profile !== null ? (
-        <><DashboardActions/></>
+        <>
+          <DashboardActions />
+        </>
       ) : (
         <>
           <p> You have not yet setup profile, please add some info </p>
