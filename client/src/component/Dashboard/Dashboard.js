@@ -14,12 +14,12 @@ const Dashboard = ({
   profile: { profile, loading },
   deleteAccount
 }) => {
+
   useEffect(() => {
-    getCurrentProfile()
-    // eslint-disable-next-line
+      getCurrentProfile()
   }, [])
 
-  return loading && profile === null ? (
+  return loading && profile !== null ? (
     <Spinner />
   ) : (
     <>
@@ -30,8 +30,9 @@ const Dashboard = ({
       {profile !== null ? (
         <>
           <DashboardActions />
-         { profile.experience.length === 0 ? ' ' : <Experience experience={profile.experience}/>} 
-         { profile.education.length === 0 ? ' ' : <Education education={profile.education} />} 
+          <Experience experience={profile.experience}/>
+          <Education education={profile.education} /> 
+
          <div className="my-2">
            <button  className='btn btn-danger' onClick={()=>deleteAccount()}> <i className='fas fa-user-minus'></i>Delete My Profile</button>
          </div>
@@ -39,7 +40,7 @@ const Dashboard = ({
       ) : (
         <>
           <p> You have not yet setup profile, please add some info </p>
-          <Link to="/create-profile" className="btn btn-primary my-1">
+          <Link to="/edit-profile" className="btn btn-primary my-1">
             Create Profile
           </Link>
         </>

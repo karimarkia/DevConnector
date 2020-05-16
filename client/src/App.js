@@ -36,6 +36,7 @@ const App = () => {
           <Route exact path="/register" component={Register} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
+          {/* <PrivateRoute exact path="/create-profile" component={ProfileForm} /> */}
           <PrivateRoute exact path="/add-experience" component={AddExperience} />
           <PrivateRoute exact path="/add-education" component={AddEducation} />
         </Switch>

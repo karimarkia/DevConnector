@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createProfile, getCurrentProfile } from '../../Store/actions/profile'
 
@@ -252,6 +252,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 })
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  ProfileForm
-)
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(ProfileForm))

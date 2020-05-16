@@ -10,22 +10,23 @@ import { setAlert } from './alert'
 
 // Get User Profile If Exist
 export const getCurrentProfile = () => async (dispatch) => {
+  
   try {
-    const res = await axios.get('api/profile/me')
+    const res = await axios.get('/api/profile/me');
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
     })
   } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    })
+    // dispatch({
+    //   type: PROFILE_ERROR,
+    //   payload: { msg: err.response.statusText, status: err.response.status },
+    // })
   }
 }
 
 // Create a Profile For A User
-export const createProfile = (formData, history, edit = false) => async (
+export const createProfile = (formData, history, profile=false ) => async (
   dispatch
 ) => {
   try {
@@ -41,9 +42,9 @@ export const createProfile = (formData, history, edit = false) => async (
       payload: res.data,
     })
 
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'))
+    dispatch(setAlert(profile ? 'Profile Updated' : 'Profile Created', 'success'))
 
-    if (!edit) {
+    if (profile) {
       history.push('/dashboard')
     }
   } catch (err) {
@@ -157,7 +158,7 @@ export const deleteAccount = () => async (dispatch) => {
 
       dispatch({ type: CLEAR_PROFILE })
       dispatch({ type: ACCOUNT_DELETED })
-      dispatch(setAlert('Your account has been permanatly deleted','succes'))
+      dispatch(setAlert('Your account has been permanatly deleted','success'))
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,

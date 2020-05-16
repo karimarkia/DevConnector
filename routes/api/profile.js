@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth')
 const Profile = require('../../models/Profile')
 const User = require('../../models/User')
+const Post = require('../../models/Posts')
 const axios = require('axios')
 const config = require('config')
 
@@ -13,20 +14,19 @@ const config = require('config')
 router.get('/me', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.user.id,
-    }).populate('user', ['name', 'avatar'])
+      user: req.user.id
+    }).populate('user', ['name', 'avatar']);
+
     if (!profile) {
-      return res
-        .status(400)
-        .json({ msg: 'There is no profile for this user !' })
+      return res.status(400).json({ msg: 'There is no profile for this user' });
     }
 
-    res.json(profile)
-  } catch (error) {
-    console.error(error.massage)
-    res.status(500).send('Server Error')
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
-})
+});
 
 // @route    POST api/profile
 // @desc     Create or update user profile
@@ -138,8 +138,13 @@ router.get('/user/:user_id', async (req, res) => {
 
 router.delete('/', auth, async (req, res) => {
   try {
-    await User.findOneAndRemove({ _id: req.user.id })
+    // delete user posts
+    await Post.deleteMany({user : req.user.id})
+    
     await Profile.findOneAndRemove({ user: req.user.id })
+    
+    await User.findOneAndRemove({ _id: req.user.id })
+    
 
     res.json({ msg: ' User deleted ' })
   } catch (err) {
