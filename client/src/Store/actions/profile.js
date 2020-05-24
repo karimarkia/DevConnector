@@ -5,14 +5,15 @@ import {
   UPDATE_PROFILE,
   ACCOUNT_DELETED,
   CLEAR_PROFILE,
+  GET_PROFILES,
+  GET_REPOS
 } from './types'
 import { setAlert } from './alert'
 
 // Get User Profile If Exist
 export const getCurrentProfile = () => async (dispatch) => {
-  
   try {
-    const res = await axios.get('/api/profile/me');
+    const res = await axios.get('/api/profile/me')
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -24,9 +25,57 @@ export const getCurrentProfile = () => async (dispatch) => {
     // })
   }
 }
+// Get all User Profiles
+export const getProfiles = () => async (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE })
+  try {
+    const res = await axios.get('/api/profile')
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data,
+    })
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
+
+// Get Profile by ID
+export const getProfileById = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/profile/user/${userId}`)
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data,
+    })
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
+
+// Get User Repos
+export const getUserRepos = (userName) => async (dispatch) => {
+  try {
+    const res = await axios.get(`api/profile/github/${userName}`)
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data,
+    })
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
 
 // Create a Profile For A User
-export const createProfile = (formData, history, profile=false ) => async (
+export const createProfile = (formData, history, profile = false) => async (
   dispatch
 ) => {
   try {
@@ -42,7 +91,9 @@ export const createProfile = (formData, history, profile=false ) => async (
       payload: res.data,
     })
 
-    dispatch(setAlert(profile ? 'Profile Updated' : 'Profile Created', 'success'))
+    dispatch(
+      setAlert(profile ? 'Profile Updated' : 'Profile Created', 'success')
+    )
 
     if (profile) {
       history.push('/dashboard')
@@ -158,7 +209,7 @@ export const deleteAccount = () => async (dispatch) => {
 
       dispatch({ type: CLEAR_PROFILE })
       dispatch({ type: ACCOUNT_DELETED })
-      dispatch(setAlert('Your account has been permanatly deleted','success'))
+      dispatch(setAlert('Your account has been permanatly deleted', 'success'))
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
