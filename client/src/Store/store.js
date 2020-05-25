@@ -4,8 +4,9 @@ import thunk from 'redux-thunk'
 import alertReducer from './reducers/alert'
 import auth from './reducers/auth'
 import profile from './reducers/profile'
+import post from './reducers/post'
 
-const rootReducer = combineReducers({ alert : alertReducer, auth, profile })
+const rootReducer = combineReducers({ alert : alertReducer, auth, profile, post})
 
 const store = createStore(
   rootReducer,
