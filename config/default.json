@@ -1,5 +1,5 @@
 {
     "mongoURI" : "mongodb+srv://karim123:karim123@devconnector-pdy7b.mongodb.net/test?retryWrites=true&w=majority",
     "jwtSecret" : "mysecret",
-    "githubToken": "40d822674ecf71f287ddefa0becdede3ec549306"
+    "githubToken": "42fdfa6ddcd8626367d585601078f8bdfbe45a4d"
 }
