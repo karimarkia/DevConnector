@@ -20,32 +20,31 @@ const profile = (state = initalState, action) => {
 
   switch (type) {
     case GET_PROFILE:
-    case UPDATE_PROFILE:
-      return {
-        ...state,
-        profile: payload,
-        loading: false,
-      }
-    case GET_PROFILES:
-      return {
-        ...state,
-        profiles: payload,
-        loading: false
-      }
-    case PROFILE_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: payload,
-        profile: null
-      }
-    case CLEAR_PROFILE:
-      return {
-        ...state,
-        profile: null,
-        repos: [],
-        loading: false,
-      }
+      case UPDATE_PROFILE:
+        return {
+          ...state,
+          profile: payload,
+          loading: false
+        };
+      case GET_PROFILES:
+        return {
+          ...state,
+          profiles: payload,
+          loading: false
+        };
+      case PROFILE_ERROR:
+        return {
+          ...state,
+          error: payload,
+          loading: false,
+          profile: null
+        };
+      case CLEAR_PROFILE:
+        return {
+          ...state,
+          profile: null,
+          repos: []
+        };
       case GET_REPOS:
         return {
           ...state,

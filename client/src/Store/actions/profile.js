@@ -11,21 +11,20 @@ import {
 import { setAlert } from './alert'
 
 // Get User Profile If Exist
-export const getCurrentProfile = () => async (dispatch) => {
+export const getCurrentProfile = () => async dispatch => {
   try {
-    const res = await axios.get('/api/profile/me')
+    const res = await axios.get('/api/profile/me');
     dispatch({
       type: GET_PROFILE,
-      payload: res.data,
-    })
+      payload: res.data
+    });
   } catch (err) {
-    dispatch({ type: CLEAR_PROFILE });
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    })
+    // dispatch({
+    //   type: PROFILE_ERROR,
+    //   payload: { msg: err.response.statusText, status: err.response.status },
+    // })
   }
-}
+};
 // Get all User Profiles
 export const getProfiles = () => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE })
