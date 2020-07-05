@@ -4,6 +4,9 @@ import {
   UPDATE_LIKES,
   REMOVE_POST,
   ADD_POST,
+  GET_POST,
+  ADD_COMMENT,
+  REMOVE_COMMENT
 } from '../actions/types'
 
 const initialState = {
@@ -22,6 +25,11 @@ const post = (state = initialState, action) => {
         ...state,
         posts: payload,
         loading: false,
+      }
+    case GET_POST:
+      return {
+        ...state,
+        post: payload,
       }
     case POST_ERROR:
       return {
@@ -48,8 +56,20 @@ const post = (state = initialState, action) => {
       return {
         ...state,
         // posts: payload,
-        posts: [ payload, ...state.posts],
+        posts: [payload, ...state.posts],
         loading: false,
+      }
+      case ADD_COMMENT: 
+      return {
+        ...state,
+        post : {...state.post, comments:payload}
+      }
+      case REMOVE_COMMENT : 
+      return{
+        ...state,
+        post: {...state.post,
+        comments : state.post.comments.filter(comment => comment._id !== payload)
+        }
       }
 
     default:

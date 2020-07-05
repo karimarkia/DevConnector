@@ -95,7 +95,6 @@ router.post(
       await profile.save()
       res.json(profile)
     } catch (error) {
-      console.log(error.massage)
       res.send(500).json('Server error')
     }
   }
@@ -110,7 +109,6 @@ router.get('/', async (req, res) => {
     let profiles = await Profile.find().populate('user', ['name', 'avatar'])
     res.json(profiles)
   } catch (err) {
-    console.log(err.massage)
     res.status(500).json('Server Error !')
   }
 })
@@ -127,7 +125,6 @@ router.get('/user/:user_id', async (req, res) => {
 
     res.json(profile)
   } catch (err) {
-    console.log(err.massage)
     res.status(500).json('Server Error !')
   }
 })

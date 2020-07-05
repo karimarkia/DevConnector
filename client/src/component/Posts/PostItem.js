@@ -11,6 +11,7 @@ const PostItem = ({
   removePost,
   auth,
   post: { _id, name, user, avatar, text, comments, date, likes },
+  showItems
 }) => {
   return (
     <div className="post bg-white p-1 my-1">
@@ -25,7 +26,9 @@ const PostItem = ({
         <p className="post-date">
           Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
-        <button
+
+        {showItems && <>
+          <button
           onClick={(e) => addLike(_id)}
           type="button"
           className="btn btn-light"
@@ -52,10 +55,18 @@ const PostItem = ({
             <i className="fas fa-times"></i>
           </button>
         )}
+        </>}
+
+       
       </div>
     </div>
   )
 }
+
+PostItem.defaultProps = {
+  showItems :true
+}
+
 
 PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
